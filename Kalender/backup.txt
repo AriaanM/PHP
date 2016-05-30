@@ -1,0 +1,130 @@
+
+<?php
+
+    $con = mysqli_connect("localhost", "root", "", "calendar");
+  error_reporting(0);
+  if($con === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+ 
+  $name = mysqli_real_escape_string($con, $_POST['name']);
+  $day = mysqli_real_escape_string($con, $_POST['day']);
+  $month = mysqli_real_escape_string($con, $_POST['month']);
+  $year = mysqli_real_escape_string($con, $_POST['year']);
+
+if (isset($_GET['delete'])and isset($_GET['id'])){
+  $delete = $_GET['delete'];
+  $id = $_GET['id'];
+}else {
+  $delete = "";
+  $sql = "";
+} 
+
+if ($delete) {
+  mysqli_query($con, "DELETE FROM birthdays WHERE id = '$id'");
+} 
+  if (isset($_POST['name'] , $_POST['day'] , $_POST['month'] , $_POST['year'])){
+  $sql = "INSERT INTO birthdays (person, day, month, year) VALUES ('$name','$day','$month','$year')"; }
+     if(mysqli_query($con, $sql)){
+      echo "Records added successfully.";
+  } else{
+      echo "ERROR: Could not be able to execute $sql. " . mysqli_error($con);
+  }
+
+if (isset($_GET['update']) and isset($_GET['$id'])) {
+    $delete = $_GET['update'];
+    $id = $_GET['id'];
+  } else {
+    $delete = "";
+    $id = "";
+  }
+
+  if (isset($_POST['update'])) {
+    $sql = "UPDATE birthdays SET person = '$_POST[person],`day`=$_POST[day]', month='$_POST[month]',year='$_POST[year]' WHERE  id = '$_POST[id]'";
+    $result = mysqli_query($con, $sql);
+  }
+    $sql = "SELECT * FROM birthdays";
+    $result = mysqli_query($con, $sql)
+    or die(mysqli_error($con));
+    $output = mysqli_fetch_all($result);
+
+
+//mysqli_close($con);
+?>
+
+<!doctype html>
+
+<html>
+<head>
+<title>Verjaardagskalender</title>
+<link href="main.css" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+</head>
+    
+        
+                <form action="index.php" method="post">
+
+                <input type="text" placeholder="Name" name="name" >
+                <select name="day">
+                    <?php
+
+                      
+                      for ($i = 1; $i <= 31; ++$i) {
+                        if ($i == $day)
+                        {
+                           $selected = 'selected="selected"';
+                        }else{
+                            $selected = '';
+                        }
+                        echo "<option $selected value=\"$i\">$i</option>";
+                      }
+                      ?>
+                </select> 
+                <select name="month">
+                    <?php
+                      for ($i = 1; $i <= 12; ++$i){
+                        if ($i == $month) {
+                        $selected = 'selected="selected"';
+                      }else{
+                        $selected = '';
+                      }
+                        echo "<option $selected value=\"$i\">$i</option>";
+                      }
+                      
+                      ?>
+                </select> 
+                <select name="year">
+                    <?php
+                      for ($i = 1945; $i <= 2016; ++$i) {
+                        if ($i == $year) {
+                        $selected = 'selected="selected"';
+                      }else{
+                        $selected = '';
+                      }
+                        echo "<option $selected value=\"$i\">$i</option>";
+                      }                      
+                      ?>
+                </select> 
+
+                <input type="submit">
+              </form>
+          <?php foreach ($output as $data){ 
+          echo "<BR>" , $data['1'] , " "  , $data['2'], "e jarig, geboren in " , $data['4'];
+
+          if ($data['0'] == $id) { ?>
+
+            <form method="post" action="index.php">
+              <input type="text" name="update" placeholder="<?=$data['1']?>">
+              <input type="hidden" name="id" value="<?=$id?>">
+            </form>
+          <?php }else{
+            $data['1'];
+            }
+            ?>
+            <a href='index.php?update=true&id=<?=$data['0']; ?>'> <?=$data['1']; ?></a>
+            <a href='index.php?delete=true&id=<?=$data['0']; ?>'>x</a>
+          <?php
+            }
+            var_dump($data);  var_dump($update);  var_dump($delete); ?>
+  </body>
+</html>

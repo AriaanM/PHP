@@ -1,0 +1,59 @@
+*{
+	padding:0px;
+	margin:0px;
+}
+
+body {
+	background-image: url("background.gif");
+	font-family: arial;
+}
+
+div {
+	width:960px;
+	margin:auto;
+	padding-left: 5px;
+}
+
+.kop{
+font-size:40px;
+}
+
+.header{
+margin:auto;
+background-color: #ad2406;
+}
+
+.frame{
+background-color: white;
+
+}
+
+ul {
+	padding:10px;
+	font-size:20px;
+}
+
+ul li{
+	display:inline;
+	padding:10px;
+}
+
+ul li a{
+	color:white;
+}
+
+input {
+    float:right;
+    clear:both;
+    margin-right: 3%;
+}
+
+hr {
+height:1pt;
+visibility: hidden;
+}
+
+button {
+	margin-left:30vw;
+}
+

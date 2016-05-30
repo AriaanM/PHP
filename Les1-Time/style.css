@@ -1,0 +1,40 @@
+*{
+    padding:0px;
+    margin:0px;
+}
+@font-face {
+    font-family: 'icelandregular';
+    src: url('iceland-regular-webfont.eot');
+    src: url('iceland-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('iceland-regular-webfont.woff2') format('woff2'),
+         url('iceland-regular-webfont.woff') format('woff'),
+         url('iceland-regular-webfont.ttf') format('truetype'),
+         url('iceland-regular-webfont.svg#icelandregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+h1 {
+font-family: icelandregular;
+font-weight: normal;
+}
+h1.night{color: white;}
+h1.dawn{color:black;}
+h1.noon{color:black;}
+h1.evening{color:white;}
+body { 
+text-align: center;	
+font-weight: normal;
+color:white;
+font-size:20px;
+}
+
+div {
+margin: auto;
+margin-top:15%;
+	width:700px;
+}
+
+body {
+background-repeat: no-repeat;
+background-size: 100%;
+}
